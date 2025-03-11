@@ -27,20 +27,27 @@ jobs:
         echo "${{ secrets.GCP_SA_KEY }}" | base64 --decode > gcp-key.json
         # Set GOOGLE_APPLICATION_CREDENTIALS to the service account key file
         export GOOGLE_APPLICATION_CREDENTIALS=gcp-key.json
+        # Print environment variables for debugging
+        echo $GOOGLE_APPLICATION_CREDENTIALS
         # Authenticate using the decoded key
         gcloud auth activate-service-account --key-file=gcp-key.json
         # Set the project for gcloud
         gcloud config set project ${{ secrets.GCP_PROJECT_ID }}
 
-    # Step 4: Initialize Terraform
-    - name: Initialize Terraform
-      run: terraform init
+    # Step 4: Check if the key file is valid (optional debug step)
+    - name: Check gcp-key.json
+      run: |
+        cat gcp-key.json
 
-    # Step 5: Plan Terraform changes
+    # Step 5: Reinitialize Terraform
+    - name: Reinitialize Terraform
+      run: terraform init -reconfigure
+
+    # Step 6: Plan Terraform changes
     - name: Plan Terraform
-      run: terraform plan -out=tfplan -var-file=terraform.tfvars
+      run: terraform plan -out=tfplan
 
-    # Step 6: Apply Terraform changes
+    # Step 7: Apply Terraform changes
     - name: Apply Terraform
       run: terraform apply -auto-approve tfplan
 
