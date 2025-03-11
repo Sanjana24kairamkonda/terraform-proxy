@@ -25,3 +25,7 @@ variable "db_instance_connection_name" {
   description = "Cloud SQL instance connection name (format: project:region:instance)"
   type        = string
 }
+variable "google_credentials_file" {
+  description = "Path to the Google Cloud service account key file"
+  type        = string
+}
