@@ -1,0 +1,5 @@
+project_id = "eng-artifact-453305-g4"
+region = "us-central1"
+zone = "us-central1-a"
+vm_name = "cloudsql-proxy-vm"
+db_instance_connection_name = 'eng-artifact-453305-g4:us-central1:my-sql-instance"
