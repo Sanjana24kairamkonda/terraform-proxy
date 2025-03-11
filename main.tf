@@ -1,4 +1,4 @@
-resource "google_service_account" "cloud_sql_proxy_sa" {
+/*resource "google_service_account" "cloud_sql_proxy_sa" {
   account_id   = "cloud-sql-proxy-sa"
   display_name = "Cloud SQL Proxy Service Account"
 }
@@ -7,7 +7,7 @@ resource "google_project_iam_member" "cloud_sql_proxy_role" {
   project = var.project_id
   role    = "roles/cloudsql.client"
   member  = "serviceAccount:${google_service_account.cloud_sql_proxy_sa.email}"
-}
+}*/
 
 resource "google_compute_instance" "cloudsql_proxy_vm" {
   name         = var.vm_name
